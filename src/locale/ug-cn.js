@@ -25,7 +25,7 @@ export default moment.defineLocale('ug-cn', {
         LLL: 'YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
         LLLL: 'dddd، YYYY-يىلىM-ئاينىڭD-كۈنى، HH:mm',
     },
-    meridiemParse: /يېرىم كېچە|سەھەر|چۈشتىن بۇرۇن|چۈش|چۈشتىن كېيىن|كەچ/,
+    meridiemParse: /يېرىم كېچە|سەھەر|چۈشتىن بۇرۇن|چۈشتىن كېيىن|چۈش|كەچ/,
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;

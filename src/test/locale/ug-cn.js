@@ -45,6 +45,47 @@ test('parse', function (assert) {
     }
 });
 
+test('parse meridiem', function (assert) {
+    var format = 'YYYY-MM-DD h:mm:ss a',
+        hours = [0, 3, 6, 9, 11, 12, 13, 15, 17, 18, 23],
+        i,
+        formatted,
+        strict,
+        lenient;
+
+    for (i = 0; i < hours.length; i++) {
+        formatted = moment([2010, 1, 14, hours[i], 15, 0])
+            .locale('ug-cn')
+            .format(format);
+        strict = moment(formatted, format, 'ug-cn', true);
+        lenient = moment(formatted, format, 'ug-cn');
+        assert.ok(strict.isValid(), formatted + ' is valid in strict mode');
+        assert.equal(
+            strict.hour(),
+            hours[i],
+            formatted + ' strictly parses to hour ' + hours[i]
+        );
+        assert.equal(
+            lenient.hour(),
+            hours[i],
+            formatted + ' leniently parses to hour ' + hours[i]
+        );
+    }
+
+    // The afternoon form starts with the noon form, so it must not be
+    // shadowed by it while parsing.
+    assert.equal(
+        moment('2010-02-14 3:15:00 چۈشتىن كېيىن', format, 'ug-cn', true).hour(),
+        15,
+        'afternoon parses strictly without leaving trailing text'
+    );
+    assert.equal(
+        moment('2010-02-14 12:15:00 چۈش', format, 'ug-cn', true).hour(),
+        12,
+        'noon parses strictly'
+    );
+});
+
 test('format', function (assert) {
     var a = [
             [
