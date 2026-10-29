@@ -148,6 +148,21 @@ test('format week', function (assert) {
     }
 });
 
+test('parse week', function (assert) {
+    var expected =
+            'Il-Ħadd_It-Tnejn_It-Tlieta_L-Erbgħa_Il-Ħamis_Il-Ġimgħa_Is-Sibt'.split(
+                '_'
+            ),
+        i;
+    for (i = 0; i < expected.length; i++) {
+        assert.equal(
+            moment(expected[i], 'dddd', 'mt', true).day(),
+            i,
+            expected[i]
+        );
+    }
+});
+
 test('from', function (assert) {
     var start = moment([2007, 1, 28]);
     assert.equal(
