@@ -11,6 +11,7 @@ export function abs() {
     data.seconds = mathAbs(data.seconds);
     data.minutes = mathAbs(data.minutes);
     data.hours = mathAbs(data.hours);
+    data.days = mathAbs(data.days);
     data.months = mathAbs(data.months);
     data.years = mathAbs(data.years);
 

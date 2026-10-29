@@ -1880,6 +1880,30 @@ test('isDuration', function (assert) {
     );
 });
 
+test('abs updates day and week getters', function (assert) {
+    [-14, 0, 14].forEach(function (days) {
+        var duration = moment.duration(days, 'days'),
+            expected = Math.abs(days);
+
+        assert.strictEqual(duration.abs(), duration, 'returns the duration');
+        assert.equal(duration.days(), expected, 'days');
+        assert.equal(duration.get('days'), expected, 'get days');
+        assert.equal(duration.weeks(), expected / 7, 'weeks');
+        assert.equal(duration.asDays(), expected, 'as days');
+        assert.equal(duration.clone().days(), duration.days(), 'clone agrees');
+        assert.equal(duration.abs().days(), expected, 'abs is idempotent');
+    });
+});
+
+test('abs updates days bubbled from hours', function (assert) {
+    var duration = moment.duration(-49, 'hours').abs();
+
+    assert.equal(duration.days(), 2, 'days');
+    assert.equal(duration.hours(), 1, 'hours');
+    assert.equal(duration.asHours(), 49, 'as hours');
+    assert.equal(duration.clone().days(), duration.days(), 'clone agrees');
+});
+
 test('add', function (assert) {
     var d = moment.duration({ months: 4, weeks: 3, days: 2 });
     // for some reason, d._data._months does not get updated; use d._months instead.
