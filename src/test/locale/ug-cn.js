@@ -469,3 +469,51 @@ test('weeks year starting sunday format', function (assert) {
         'Jan  9 2012 should be week 3'
     );
 });
+
+test('long dates round trip through a strict parse', function (assert) {
+    var arabicComma = String.fromCharCode(0x060c),
+        formats = ['LL', 'LLL', 'LLLL'],
+        dates = [
+            [2024, 1, 14, 15, 25, 50],
+            [2013, 11, 1, 0, 0, 0],
+            [2024, 0, 7, 23, 59, 59],
+        ],
+        i,
+        j,
+        output,
+        parsed;
+
+    for (i = 0; i < dates.length; i++) {
+        for (j = 0; j < formats.length; j++) {
+            output = moment(dates[i]).locale('ug-cn').format(formats[j]);
+            parsed = moment(output, formats[j], 'ug-cn', true);
+            assert.ok(
+                parsed.isValid(),
+                'ug-cn strict parse of ' +
+                    formats[j] +
+                    ': ' +
+                    JSON.stringify(output)
+            );
+            assert.equal(
+                parsed.format(formats[j]),
+                output,
+                'ug-cn round trip of ' +
+                    formats[j] +
+                    ': ' +
+                    JSON.stringify(output)
+            );
+        }
+    }
+
+    output = moment(dates[0]).locale('ug-cn').format('LLLL');
+    assert.notEqual(
+        output.indexOf(arabicComma),
+        -1,
+        'ug-cn LLLL keeps the Arabic comma: ' + JSON.stringify(output)
+    );
+    assert.equal(
+        output.indexOf(','),
+        -1,
+        'ug-cn LLLL does not write a plain comma: ' + JSON.stringify(output)
+    );
+});
