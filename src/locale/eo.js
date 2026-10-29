@@ -24,7 +24,7 @@ export default moment.defineLocale('eo', {
         LLLL: 'dddd[n], [la] D[-an de] MMMM, YYYY HH:mm',
         llll: 'ddd, [la] D[-an de] MMM, YYYY HH:mm',
     },
-    meridiemParse: /[ap]\.t\.m/i,
+    meridiemParse: /[ap]\.?t\.?m\.?/i,
     isPM: function (input) {
         return input.charAt(0).toLowerCase() === 'p';
     },
