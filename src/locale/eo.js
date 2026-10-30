@@ -15,6 +15,7 @@ export default moment.defineLocale('eo', {
     weekdays: 'dimanĉo_lundo_mardo_merkredo_ĵaŭdo_vendredo_sabato'.split('_'),
     weekdaysShort: 'dim_lun_mard_merk_ĵaŭ_ven_sab'.split('_'),
     weekdaysMin: 'di_lu_ma_me_ĵa_ve_sa'.split('_'),
+    weekdaysParseExact: true,
     longDateFormat: {
         LT: 'HH:mm',
         LTS: 'HH:mm:ss',

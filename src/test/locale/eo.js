@@ -99,6 +99,22 @@ test('parse meridiem', function (assert) {
     );
 });
 
+test('parse weekday followed by a literal', function (assert) {
+    var i, formatted, parsed;
+    for (i = 0; i < 7; i++) {
+        formatted = moment([2024, 9, 13 + i]).format('dddd[n]');
+        parsed = moment(formatted, 'dddd[n]', 'eo', true);
+        assert.equal(parsed.day(), i, formatted + ' parses back');
+    }
+    formatted = moment([2024, 9, 15, 14, 25]).format('LLLL');
+    parsed = moment(formatted, 'LLLL', 'eo', true);
+    assert.equal(
+        parsed.format('YYYY-MM-DD HH:mm'),
+        '2024-10-15 14:25',
+        'LLLL output parses back'
+    );
+});
+
 test('format', function (assert) {
     var a = [
             [
